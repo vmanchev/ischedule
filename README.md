@@ -1,6 +1,8 @@
 # iSchedule
 This project showcase a simple usage of [rrule](https://jakubroztocil.github.io/rrule) library. 
 
+## Demo
+https://ischedule.optima.digital
 
 ## Install 
 ```
