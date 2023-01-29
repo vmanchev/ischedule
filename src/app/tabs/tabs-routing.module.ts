@@ -8,29 +8,34 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'tasks',
+        loadChildren: () =>
+          import('../tasks/taks.module').then((m) => m.TasksPageModule),
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'manage',
+        loadChildren: () =>
+          import('../manage/manage.module').then((m) => m.ManagePageModule),
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'schedule',
+        loadChildren: () =>
+          import('../schedule/schedule.module').then(
+            (m) => m.SchedulePageModule
+          ),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+        redirectTo: '/tabs/tasks',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    redirectTo: '/tabs/tasks',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

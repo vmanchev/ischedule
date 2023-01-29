@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> {{ pageTitle }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{pageTitle}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+    <ion-card>
+      <ion-card-content class="ion-no-padding">
+        <ion-item>
+          <ion-label position="stacked">Task name</ion-label>
+          <ion-input
+            [(ngModel)]="ruleForm.name"
+            name="name"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Start date & time</ion-label>
+
+          <ion-datetime-button datetime="startDateTime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime
+                id="startDateTime"
+                [(ngModel)]="ruleForm.rule.dtstart"
+                name="dtstart"
+                required
+              ></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Repeat every</ion-label>
+          <ion-select
+            name="freq"
+            interface="popover"
+            [(ngModel)]="ruleForm.rule.freq"
+            required
+          >
+            <ion-select-option
+              *ngFor="let frequencyOption of frequencyOptions"
+              [value]="frequencyOption.id"
+              >{{ frequencyOption.name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Day(s) of the week</ion-label>
+          <ion-select
+            name="byweekday"
+            [multiple]="true"
+            [(ngModel)]="ruleForm.rule.byweekday"
+            required
+          >
+            <ion-select-option
+              *ngFor="let weekdayOption of weekdaysOptions"
+              [value]="weekdayOption.id.weekday"
+              >{{ weekdayOption.name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Month(s)</ion-label>
+          <ion-select
+            name="bymonth"
+            [multiple]="true"
+            [(ngModel)]="ruleForm.rule.bymonth"
+            required
+          >
+            <ion-select-option
+              *ngFor="let monthsOption of monthsOptions"
+              [value]="monthsOption.id"
+              >{{ monthsOption.name }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+
+      <div class="action-buttons">
+        <ion-button
+          expand="block"
+          type="button"
+          color="danger"
+          *ngIf="ruleForm.id"
+          (click)="onDelete()"
+          >Delete</ion-button
+        >
+
+        <ion-button expand="block" type="submit" [disabled]="!taskForm.valid"
+          >Save</ion-button
+        >
+      </div>
+    </ion-card>
+  </form>
+</ion-content>
